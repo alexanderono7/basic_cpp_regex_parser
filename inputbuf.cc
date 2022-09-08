@@ -13,6 +13,7 @@
 
 using namespace std;
 
+// Returns true if input buffer is empty
 bool InputBuffer::EndOfInput()
 {
     if (!input_buffer.empty())
@@ -21,6 +22,8 @@ bool InputBuffer::EndOfInput()
         return cin.eof();
 }
 
+// Returns given char to the input buffer, and also return same char?
+// Useful for peek function, I assume.
 char InputBuffer::UngetChar(char c)
 {
     if (c != EOF)
@@ -28,6 +31,7 @@ char InputBuffer::UngetChar(char c)
     return c;
 }
 
+// Writes next char in input_buffer to given char address.
 void InputBuffer::GetChar(char& c)
 {
     if (!input_buffer.empty()) {
@@ -38,6 +42,8 @@ void InputBuffer::GetChar(char& c)
     }
 }
 
+// Push given string back on to input buffer - also returns same string?
+// Useful for peek function, I assume.
 string InputBuffer::UngetString(string s)
 {
     for (int i = 0; i < (int)s.size(); i++)
