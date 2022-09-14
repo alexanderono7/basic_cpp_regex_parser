@@ -1,0 +1,19 @@
+parse_input(){
+    parse_tokens_section()
+    expect(INPUT_TEXT)
+}
+
+parse_tokens_section(){
+    parse_token_list()
+    expect(HASH)
+}
+
+parse_token_list(){
+    parse_token();
+    t = lexer.peek(1);
+    if (t.token_ty)
+}
+
+parse_token(){
+    
+}

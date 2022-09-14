@@ -45,17 +45,24 @@ void Parser::parse_token()
 
 void Parser::parse_token_list()
 {
+    /*
+    
+    */
 
 }
 
 void Parser::parse_tokens_section()
 {
-    
+    /*
+    parse token_list
+    expect(HASH)    
+    */
 }
 
 void Parser::parse_input()
 {
-    
+    //parse tokens_section
+    //expect(INPUT_TEXT)
 }
 
 // This function simply reads and prints all tokens
@@ -89,6 +96,6 @@ int main()
     // not work correctly
     Parser parser;
 
-    parser.readAndPrintAllInput();
+    //parser.readAndPrintAllInput();
 	
 }
