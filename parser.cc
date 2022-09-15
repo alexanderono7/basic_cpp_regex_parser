@@ -79,7 +79,7 @@ void Parser::readAndPrintAllInput()
     // while end of input is not reached
     while (t.token_type != END_OF_FILE) 
     {
-        t.Print();         	// pringt token
+        t.Print();         	// print token
         t = lexer.GetToken();	// and get another one
     }
         
@@ -96,6 +96,6 @@ int main()
     // not work correctly
     Parser parser;
 
-    //parser.readAndPrintAllInput();
-	
+    parser.readAndPrintAllInput(); // This existed by default - I believe I'm supposed to remove it
+	//parser.parse_input();
 }
