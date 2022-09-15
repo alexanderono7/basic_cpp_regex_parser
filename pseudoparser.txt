@@ -1,6 +1,8 @@
+//basically the start variable
 parse_input(){
     parse_tokens_section()
     expect(INPUT_TEXT)
+    expect(EOF)
 }
 
 parse_tokens_section(){
@@ -10,10 +12,53 @@ parse_tokens_section(){
 
 parse_token_list(){
     parse_token();
+    
     t = lexer.peek(1);
-    if (t.token_ty)
+    // POSSIBLE PROBLEM HERE v
+    if(t == HASH){
+        return
+    }
+    else if (t.token_type == COMMA_type){
+        expect(COMMA);
+        parse_token_list();
+    }
+    else {
+        syntax_error();
+    }
 }
 
 parse_token(){
+    expect(ID)
+    parse_expr();    
+}
+
+parse_expr(){
+    t = lexer.peek(1);
     
+    if(t == LPAREN){
+        //LPARENT expr RPAREN
+        expect(LPAREN);
+        parse_expr();
+        expect(RPAREN);
+        
+        t = lexer.peek(1);
+        if(t == DOT or t == OR){
+            expect(LPAREN);
+            parse_expr();
+            expect(RPAREN);
+        }
+        else if(t == STAR){
+            expect(STAR)
+            //am I supposed to put something else here?
+        }
+        else{
+            syntax_error();
+        }
+    }
+    else if(t == UNDERSCORE){
+        expect(UNDERSCORE)
+    }
+    else {
+        syntax_error();
+    }
 }
