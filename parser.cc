@@ -33,22 +33,10 @@ Token Parser::expect(TokenType expected_type)
     return t;
 }
 
-void Parser::parse_expr()
+void Parser::parse_input()
 {
- 
-}
-
-void Parser::parse_token()
-{
-   
-}
-
-void Parser::parse_token_list()
-{
-    /*
-    
-    */
-
+    //parse tokens_section
+    //expect(INPUT_TEXT)
 }
 
 void Parser::parse_tokens_section()
@@ -59,11 +47,24 @@ void Parser::parse_tokens_section()
     */
 }
 
-void Parser::parse_input()
+void Parser::parse_token_list()
 {
-    //parse tokens_section
-    //expect(INPUT_TEXT)
+    /*
+    
+    */
+
 }
+
+void Parser::parse_token()
+{
+   
+}
+
+void Parser::parse_expr()
+{
+    //expect
+}
+
 
 // This function simply reads and prints all tokens
 // I included it as an example. You should compile the provided code
@@ -77,6 +78,7 @@ void Parser::readAndPrintAllInput()
     t = lexer.GetToken();
 
     // while end of input is not reached
+    // Print the contents of input token list
     while (t.token_type != END_OF_FILE) 
     {
         t.Print();         	// print token
@@ -97,5 +99,5 @@ int main()
     Parser parser;
 
     parser.readAndPrintAllInput(); // This existed by default - I believe I'm supposed to remove it
-	//parser.parse_input();
+	parser.parse_input();
 }
