@@ -7,12 +7,14 @@
 #define __PARSER_H__
 
 #include <string>
+#include <vector>
 #include "lexer.h"
 
 class Parser {
   public:
     void parse_input();
     void readAndPrintAllInput();
+    std::vector<Token> vect;
   private:
     LexicalAnalyzer lexer;
     void syntax_error();

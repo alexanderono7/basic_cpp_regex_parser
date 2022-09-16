@@ -9,6 +9,7 @@
  */
 #include <iostream>
 #include <cstdlib>
+#include <vector>
 #include "parser.h"
 
 using namespace std;
@@ -35,6 +36,8 @@ Token Parser::expect(TokenType expected_type)
 
 void Parser::parse_input()
 {
+    for(Token i: vect)
+        cout << i.token_type << ' ';
     //parse tokens_section
     //expect(INPUT_TEXT)
 }
@@ -81,6 +84,7 @@ void Parser::readAndPrintAllInput()
     // Print the contents of input token list
     while (t.token_type != END_OF_FILE) 
     {
+        vect.push_back(t);
         t.Print();         	// print token
         t = lexer.GetToken();	// and get another one
     }
