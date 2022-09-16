@@ -182,8 +182,8 @@ Token LexicalAnalyzer::GetToken()
     Token token;
     if (index == (int) tokenList.size()){       // return end of file if
         token.token_type = END_OF_FILE;
-        token.line_no = line_no;
         token.lexeme = "";                // index is too large
+        token.line_no = line_no;
     }
     else{
         token = tokenList[index];
