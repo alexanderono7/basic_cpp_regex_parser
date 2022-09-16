@@ -14,6 +14,25 @@
 
 using namespace std;
 
+string translate(int x){
+    switch(x){
+        case 0: return "END_OF_FILE";
+        case 1: return "LPAREN";
+        case 2: return "RPAREN";
+        case 3: return "HASH";
+        case 4: return "ID";
+        case 5: return "COMMA";
+        case 6: return "DOT";
+        case 7: return "STAR";
+        case 8: return "OR";
+        case 9: return "UNDERSCORE";
+        case 10: return "SYMBOL";
+        case 11: return "CHAR";
+        case 12: return "INPUT_TXT";
+        case 13: return "ERROR";
+    }
+}
+
 void Parser::syntax_error()
 {
     cout << "SYNTAX ERROR\n";
@@ -37,7 +56,7 @@ Token Parser::expect(TokenType expected_type)
 void Parser::parse_input()
 {
     for(Token i: vect)
-        cout << i.token_type << ' ';
+        cout << translate(i.token_type) << ' ';
     //parse tokens_section
     //expect(INPUT_TEXT)
 }
