@@ -14,7 +14,7 @@
 
 using namespace std;
 
-string translate(int x){
+string int2str(int x){
     switch(x){
         case 0: return "END_OF_FILE";
         case 1: return "LPAREN";
@@ -32,6 +32,28 @@ string translate(int x){
         case 13: return "ERROR";
     }
 }
+
+/*
+useless
+int enum2int(string x){
+    switch(x){
+           case "END_OF_FILE":  return  0;
+           case "LPAREN":  return  1;
+           case "RPAREN":  return  2;
+           case "HASH":  return  3;
+           case "ID":  return  4;
+           case "COMMA":  return  5;
+           case "DOT":  return  6;
+           case "STAR":  return  7;
+           case "OR":  return  8;
+           case "UNDERSCORE":  return  9;
+           case  "SYMBOL":  return 10;
+           case  "CHAR":  return 11;
+           case  "INPUT_TXT":  return 12;
+           case  "ERROR":  return 13;
+    }
+}
+*/
 
 void Parser::syntax_error()
 {
@@ -55,36 +77,64 @@ Token Parser::expect(TokenType expected_type)
 
 void Parser::parse_input()
 {
-    for(Token i: vect)
-        cout << translate(i.token_type) << ' ';
-    //parse tokens_section
-    //expect(INPUT_TEXT)
+    /* for(Token i: vect) */
+    parse_tokens_section();
+    expect(INPUT_TEXT);
+    expect(END_OF_FILE);
 }
 
 void Parser::parse_tokens_section()
 {
-    /*
-    parse token_list
-    expect(HASH)    
-    */
+    parse_token_list();
+    expect(HASH);
 }
 
 void Parser::parse_token_list()
 {
-    /*
+    parse_token();
     
-    */
-
+    Token t = lexer.peek(1);
+    // POSSIBLE PROBLEM HERE vvv
+    if(t.token_type == HASH){
+        // leave empty?
+    }else if(t.token_type == COMMA){
+        expect(COMMA);
+        parse_token_list();
+    }else{
+        syntax_error();
+    }
 }
 
 void Parser::parse_token()
 {
-   
+    expect(ID);
+    parse_expr();
 }
 
 void Parser::parse_expr()
 {
-    //expect
+    Token t = lexer.peek(1);
+    
+    if(t.token_type == LPAREN) {
+        expect(LPAREN);
+        parse_expr();
+        expect(RPAREN);
+        
+        t = lexer.peek(1);
+        if(t.token_type == DOT or t.token_type == OR){
+            expect(LPAREN);
+            parse_expr();
+            expect(RPAREN);
+        }else if(t.token_type == STAR){
+            expect(STAR);
+        }else{
+            syntax_error();
+        }
+    }else if(t.token_type == UNDERSCORE){
+        expect(UNDERSCORE);
+    }else{
+        syntax_error();
+    }
 }
 
 
