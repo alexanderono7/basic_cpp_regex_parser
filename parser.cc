@@ -115,13 +115,21 @@ void Parser::parse_expr()
 {
     Token t = lexer.peek(1);
     
-    if(t.token_type == LPAREN) {
+    if(t.token_type == CHAR) {
+        expect(CHAR);
+    }else if(t.token_type == LPAREN) {
         expect(LPAREN);
         parse_expr();
         expect(RPAREN);
         
         t = lexer.peek(1);
-        if(t.token_type == DOT or t.token_type == OR){
+        if(t.token_type == DOT){
+            expect(DOT);
+            expect(LPAREN);
+            parse_expr();
+            expect(RPAREN);
+        }else if(t.token_type == OR){
+            expect(OR);
             expect(LPAREN);
             parse_expr();
             expect(RPAREN);
@@ -161,6 +169,8 @@ void Parser::readAndPrintAllInput()
     // note that you should use END_OF_FILE and not EOF
 }
 
+//void Parser::printAll(){ }
+
 int main()
 {
     // note: the parser class has a lexer object instantiated in it (see file
@@ -171,6 +181,6 @@ int main()
     // not work correctly
     Parser parser;
 
-    parser.readAndPrintAllInput(); // This existed by default - I believe I'm supposed to remove it
+    //parser.readAndPrintAllInput(); // This existed by default - I believe I'm supposed to remove it
 	parser.parse_input();
 }
