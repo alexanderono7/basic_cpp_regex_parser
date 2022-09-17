@@ -77,7 +77,7 @@ Token Parser::expect(TokenType expected_type)
 
 void Parser::parse_input()
 {
-    /* for(Token i: vect) */
+    // for(Token i: vect)
     parse_tokens_section();
     expect(INPUT_TEXT);
     expect(END_OF_FILE);
