@@ -56,12 +56,14 @@ int enum2int(string x){
 }
 */
 
+// triggers when there is a problem w/ token_section
 void Parser::syntax_error()
 {
     cout << "SNYTAX ERORR\n";
     exit(1);
 }
 
+// should trigger when INPUT_TEXT has an area which does not fit any given regex
 void Parser::expr_error()
 {
     cout << "EXPR ERROR (PLACEHOLDER)\n";
