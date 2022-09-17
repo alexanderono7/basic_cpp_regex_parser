@@ -3,6 +3,10 @@
 
 #include <string>
 #include <vector>
+class regexer{
+    public:
+    private:
+};
 
 class regex{
     public:

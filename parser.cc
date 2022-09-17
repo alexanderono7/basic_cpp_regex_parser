@@ -58,7 +58,6 @@ int enum2int(string x){
 
 void Parser::syntax_error()
 {
-    //cout << "SYNTAX ERROR\n";
     cout << "SNYTAX ERORR\n";
     exit(1);
 }

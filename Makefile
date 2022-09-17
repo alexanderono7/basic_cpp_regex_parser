@@ -1,10 +1,12 @@
 build:
 	g++ -std=c++11 -g -ggdb -Wall inputbuf.cc lexer.cc parser.cc -o a.out 
 
-full:
+all:
+	g++ -std=c++11 -g -ggdb -Wall inputbuf.cc lexer.cc parser.cc -o a.out 
 	bash ./test1.sh
-	
-error:
+
+one:
+	g++ -std=c++11 -g -ggdb -Wall inputbuf.cc lexer.cc parser.cc -o a.out 
 	bash ./test2.sh
 
 clean:
