@@ -19,6 +19,7 @@ class Parser {
     LexicalAnalyzer lexer;
     void syntax_error();
     Token expect(TokenType expected_type);
+    Token expect_input_text();
     void parse_tokens_section();
     void parse_token_list();
     void parse_token();

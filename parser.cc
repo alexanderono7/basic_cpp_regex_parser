@@ -75,11 +75,26 @@ Token Parser::expect(TokenType expected_type)
     return t;
 }
 
+//Parse INPUT_TEXT section - will need to use the Regex for checking
+Token Parser::expect_input_text(){
+    // NEEDS TO BE UPDATED TO USE REGEX!
+
+    Token t = lexer.GetToken();
+    while (t.token_type != END_OF_FILE) 
+    {
+        if(t.token_type != CHAR){
+            syntax_error();
+        }else{
+            t = lexer.GetToken();	// and get another one
+        }
+    }
+}
+
 void Parser::parse_input()
 {
     // for(Token i: vect)
     parse_tokens_section();
-    expect(INPUT_TEXT);
+    expect(INPUT_TEXT); // Nevermind this MIGHT be viable, but we'll see.
     expect(END_OF_FILE);
 }
 
