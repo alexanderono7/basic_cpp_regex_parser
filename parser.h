@@ -18,6 +18,9 @@ class Parser {
   private:
     LexicalAnalyzer lexer;
     void syntax_error();
+    void expr_error();
+    void semantic_error();
+    void epsilon_error();
     Token expect(TokenType expected_type);
     Token expect_input_text();
     void parse_tokens_section();

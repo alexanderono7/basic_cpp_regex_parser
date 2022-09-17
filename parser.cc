@@ -62,6 +62,24 @@ void Parser::syntax_error()
     exit(1);
 }
 
+void Parser::expr_error()
+{
+    cout << "EXPR ERROR (PLACEHOLDER)\n";
+    exit(1);
+}
+
+void Parser::semantic_error()
+{
+    cout << "SEMANTIC ERROR (PLACEHOLDER)\n";
+    exit(1);
+}
+
+void Parser::epsilon_error()
+{
+    cout << "EPSILON ERROR (PLACEHOLDER)\n";
+    exit(1);
+}
+
 // this function gets a token and checks if it is
 // of the expected type. If it is, the token is
 // returned, otherwise, synatx_error() is generated
@@ -74,22 +92,6 @@ Token Parser::expect(TokenType expected_type)
     if (t.token_type != expected_type)
         syntax_error();
     return t;
-}
-
-//Parse INPUT_TEXT section - will need to use the Regex for checking
-Token Parser::expect_input_text(){
-    // NEEDS TO BE UPDATED TO USE REGEX!
-
-    Token t = lexer.GetToken();
-    while (t.token_type != END_OF_FILE) 
-    {
-        if(t.token_type != CHAR){
-            syntax_error();
-        }else{
-            t = lexer.GetToken();	// and get another one
-        }
-    }
-    return t; //placeholder
 }
 
 void Parser::parse_input()

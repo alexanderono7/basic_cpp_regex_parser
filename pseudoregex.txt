@@ -1,0 +1,9 @@
+class regex {
+    public:
+    private:
+}
+
+class regex_node {
+    public:
+    private:
+}
