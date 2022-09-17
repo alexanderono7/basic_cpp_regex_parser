@@ -31,6 +31,7 @@ string int2str(int x){
         case 12: return "INPUT_TXT";
         case 13: return "ERROR";
     }
+    return "WHAT";
 }
 
 /*
@@ -88,6 +89,7 @@ Token Parser::expect_input_text(){
             t = lexer.GetToken();	// and get another one
         }
     }
+    return t; //placeholder
 }
 
 void Parser::parse_input()
