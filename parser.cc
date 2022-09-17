@@ -111,7 +111,7 @@ void Parser::parse_token_list()
     Token t = lexer.peek(1);
     // POSSIBLE PROBLEM HERE vvv
     if(t.token_type == HASH){
-        // leave empty?
+        expect(HASH);
     }else if(t.token_type == COMMA){
         expect(COMMA);
         parse_token_list();
