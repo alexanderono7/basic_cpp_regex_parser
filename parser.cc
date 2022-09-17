@@ -58,7 +58,8 @@ int enum2int(string x){
 
 void Parser::syntax_error()
 {
-    cout << "SYNTAX ERROR\n";
+    //cout << "SYNTAX ERROR\n";
+    cout << "SNYTAX ERORR\n";
     exit(1);
 }
 
@@ -91,6 +92,7 @@ Token Parser::expect(TokenType expected_type)
     Token t = lexer.GetToken();
     if (t.token_type != expected_type)
         syntax_error();
+    //vect.push_back(t);
     return t;
 }
 

@@ -3,6 +3,9 @@ build:
 
 full:
 	bash ./test1.sh
+	
+error:
+	bash ./test2.sh
 
 clean:
 	rm a.out
