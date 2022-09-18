@@ -15,6 +15,8 @@ class Parser {
     void parse_input();
     void readAndPrintAllInput();
     std::vector<Token> vect;
+    std::vector<Token> ids;       //possibly temp
+    std::vector<Token> patterns;  //possibly temp
   private:
     LexicalAnalyzer lexer;
     void syntax_error();

@@ -94,6 +94,9 @@ Token Parser::expect(TokenType expected_type)
     Token t = lexer.GetToken();
     if (t.token_type != expected_type)
         syntax_error();
+    if(t.token_type == ID){
+        ids.push_back(t);
+    }
     vect.push_back(t);
     return t;
 }
@@ -207,7 +210,10 @@ int main()
 	parser.parse_input();
 
     for(Token i: parser.vect){
-        //cout << i.token_type;
+        i.Print(); // remove later...
+    }
+    cout << "\n\n";
+    for(Token i: parser.ids){
         i.Print(); // remove later...
     }
 }
