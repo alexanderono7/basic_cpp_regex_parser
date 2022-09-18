@@ -16,7 +16,7 @@ def:
 	# default, literally 1 test case (defined here)
 	g++ -std=c++11 -g -ggdb -Wall inputbuf.cc lexer.cc parser.cc -o a.out 
 	cat ./inputs.txt
-	printf "\n"
+	printf "\n\n"
 	./a.out < $(foo)
 
 clean:

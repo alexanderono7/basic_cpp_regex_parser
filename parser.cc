@@ -10,6 +10,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
+#include <map>
 #include "parser.h"
 
 using namespace std;
@@ -93,13 +94,12 @@ Token Parser::expect(TokenType expected_type)
     Token t = lexer.GetToken();
     if (t.token_type != expected_type)
         syntax_error();
-    //vect.push_back(t);
+    vect.push_back(t);
     return t;
 }
 
 void Parser::parse_input()
 {
-    // for(Token i: vect)
     parse_tokens_section();
     expect(INPUT_TEXT); // Nevermind this MIGHT be viable, but we'll see.
     expect(END_OF_FILE);
@@ -205,4 +205,9 @@ int main()
 
     //parser.readAndPrintAllInput(); // This existed by default - I believe I'm supposed to remove it
 	parser.parse_input();
+
+    for(Token i: parser.vect){
+        //cout << i.token_type;
+        i.Print(); // remove later...
+    }
 }
