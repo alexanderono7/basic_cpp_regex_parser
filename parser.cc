@@ -97,6 +97,9 @@ Token Parser::expect(TokenType expected_type)
     if(t.token_type == ID){
         ids.push_back(t);
     }
+    if(t.token_type == INPUT_TEXT){
+        input_text = t.lexeme;
+    }
     vect.push_back(t);
     return t;
 }
@@ -104,7 +107,7 @@ Token Parser::expect(TokenType expected_type)
 void Parser::parse_input()
 {
     parse_tokens_section();
-    expect(INPUT_TEXT); // Nevermind this MIGHT be viable, but we'll see.
+    expect(INPUT_TEXT);
     expect(END_OF_FILE);
 }
 
@@ -216,4 +219,8 @@ int main()
     for(Token i: parser.ids){
         i.Print(); // remove later...
     }
+    
+    cout << "\n\n";
+    cout << parser.input_text;
+    cout << "\n";
 }
