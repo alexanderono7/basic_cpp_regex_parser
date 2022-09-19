@@ -14,7 +14,7 @@ class Parser {
   public:
     void parse_input();
     void readAndPrintAllInput();
-    std::vector<Token> vect;
+    std::vector<Token> vect;      //contains ALL tokens of the input
     std::vector<Token> ids;       //possibly temp
     std::vector<Token> patterns;  //possibly temp
     std::string input_text;       //possibly temp
