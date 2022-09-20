@@ -7,19 +7,7 @@
 #include "lexer.h"
 #include "parser.h"
 
-int match(regex r, std::string s, int p);
-Token my_getToken(std::vector<Token> L, std::string s, int p);
-regex regex_OR(regex r);
-regex regex_KLEENE(regex r);
 
-
-class regex{
-    public:
-        regex(char a);
-    private:
-        node start;
-        node end;
-};
 
 class node{
     public:
@@ -29,4 +17,18 @@ class node{
         std::string second_label;
     private:
 };
+
+class regex{
+    public:
+        regex(char a);
+    private:
+        node start;
+        node end;
+};
+
+
+int match(regex r, std::string s, int p);
+Token my_getToken(std::vector<Token> L, std::string s, int p);
+regex regex_OR(regex r);
+regex regex_KLEENE(regex r);
 #endif
