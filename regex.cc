@@ -1,5 +1,5 @@
 #include "regex.h"
-
+using namespace std;
 /*
 1. Determine the longest possible substring of s @ position p,
     that matches r.
@@ -8,7 +8,7 @@
     corresponding to the position after the lexeme 
     (b/w p and p').
 */
-int match(regex r, std::string s, int p){
+int match(regex r, string s, int p){
     return 0;
 }
 
@@ -20,6 +20,19 @@ int match(regex r, std::string s, int p){
     to reflect that the input is consumed
 4. If there is a tie, return the token listed first in the list.
 */
-Token my_getToken(std::vector<Token> L, std::string s, int p){
+Token my_getToken(vector<Token> L, string s, int p){
 
+}
+
+regex::regex(char a){
+    node one;
+    node two;
+    one.first_label = a;
+    one.first_neighbor = &two;
+    one.second_neighbor = NULL;
+
+    two.first_label = '-';
+    two.first_neighbor = NULL;
+    two.second_neighbor = NULL;
+    
 }

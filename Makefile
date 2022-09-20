@@ -13,11 +13,15 @@ one:
 	
 foo = ./inputs.txt
 def:
-	# default, literally 1 test case (defined here)
+	# default, literally 1 test case (defined in inputs.txt)
 	g++ -std=c++11 -g -ggdb -Wall inputbuf.cc lexer.cc parser.cc -o a.out 
 	cat ./inputs.txt
 	printf "\n\n"
 	./a.out < $(foo)
+
+reg:
+	# testing regex files
+	g++ -std=c++11 -g -ggdb -Wall regex.cc -o a.out 
 
 clean:
 	rm a.out
