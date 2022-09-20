@@ -21,9 +21,11 @@ class node{
 class regex{
     public:
         regex(char a);
+        void OR();
+        void kleene();
     private:
-        node start;
-        node end;
+        node *start;
+        node *accept;
 };
 
 

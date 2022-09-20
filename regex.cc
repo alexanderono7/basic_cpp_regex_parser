@@ -21,7 +21,7 @@ int match(regex r, string s, int p){
 4. If there is a tie, return the token listed first in the list.
 */
 Token my_getToken(vector<Token> L, string s, int p){
-
+    Token t;  return t; // remove later (placeholder to stop warnings)
 }
 
 regex::regex(char a){
@@ -34,5 +34,22 @@ regex::regex(char a){
     two.first_label = '-';
     two.first_neighbor = NULL;
     two.second_neighbor = NULL;
+    start = &one;
+    accept = &two;
+}
+
+void regex::OR(){
+    node newstart;
+    node newaccept;
     
+    newstart.first_neighbor = start;
+    newaccept.second_neighbor = start;
+    
+    newstart.first_label = '-';
+    newstart.second_label = '-';
+    newaccept.first_neighbor = NULL;
+    newaccept.second_neighbor = NULL;
+    
+    start = &newstart;
+    accept = &newaccept;
 }
