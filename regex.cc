@@ -24,6 +24,11 @@ Token my_getToken(vector<Token> L, string s, int p){
     Token t;  return t; // remove later (placeholder to stop warnings)
 }
 
+regex::regex(){
+    this->start = NULL;
+    this->accept = NULL;
+}
+
 regex::regex(char a){
     node one;
     node two;
@@ -31,25 +36,43 @@ regex::regex(char a){
     one.first_neighbor = &two;
     one.second_neighbor = NULL;
 
-    two.first_label = '-';
+    two.first_label = '_';
     two.first_neighbor = NULL;
     two.second_neighbor = NULL;
     start = &one;
     accept = &two;
 }
 
-void regex::OR(){
+void regex::kleene(){
     node newstart;
     node newaccept;
     
     newstart.first_neighbor = start;
     newaccept.second_neighbor = start;
     
-    newstart.first_label = '-';
-    newstart.second_label = '-';
+    newstart.first_label = '_';
+    newstart.second_label = '_';
     newaccept.first_neighbor = NULL;
     newaccept.second_neighbor = NULL;
     
     start = &newstart;
     accept = &newaccept;
+}
+
+regex regex_or(regex a, regex b){
+    regex result;
+    node newstart;
+    node newaccept;
+
+    newstart.first_label = '_';
+    newstart.second_label = '_';
+    newstart.first_neighbor = a.start;
+    newstart.second_neighbor = b.start;
+    
+    a.accept->first_neighbor = &newaccept;
+    a.accept->first_label = '_';
+    b.accept->first_neighbor = &newaccept;
+    b.accept->first_label = '_';
+
+    return result;
 }

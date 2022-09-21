@@ -144,6 +144,7 @@ void Parser::parse_expr()
     Token t = lexer.peek(1);
     
     if(t.token_type == CHAR) {
+        //create regex here?
         expect(CHAR);
     }else if(t.token_type == LPAREN) {
         expect(LPAREN);

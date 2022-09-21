@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include "lexer.h"
+#include "regex.h"
 
 class Parser {
   public:
@@ -17,6 +18,7 @@ class Parser {
     std::vector<Token> vect;      //contains ALL tokens of the input
     std::vector<Token> ids;       //possibly temp
     std::vector<Token> patterns;  //possibly temp
+    std::vector<regex> regs;      //possibly temp
     std::string input_text;       //possibly temp
   private:
     LexicalAnalyzer lexer;

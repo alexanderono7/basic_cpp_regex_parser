@@ -5,8 +5,6 @@
 #include <string>
 #include <vector>
 #include "lexer.h"
-#include "parser.h"
-
 
 
 class node{
@@ -21,16 +19,17 @@ class node{
 class regex{
     public:
         regex(char a);
-        void OR();
+        regex();
+        void regor();
         void kleene();
-    private:
         node *start;
         node *accept;
+    private:
 };
 
 
 int match(regex r, std::string s, int p);
 Token my_getToken(std::vector<Token> L, std::string s, int p);
-regex regex_OR(regex r);
+regex regex_or(regex a, regex b);
 regex regex_KLEENE(regex r);
 #endif
