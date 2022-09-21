@@ -43,6 +43,7 @@ regex::regex(std::string a){
     accept = &two;
 }
 
+// Given a regex x, return x*
 void regex::kleene(){
     node newstart;
     node newaccept;
@@ -59,6 +60,7 @@ void regex::kleene(){
     accept = &newaccept;
 }
 
+// Given regex a and regex b, return a regex which is [a | b] (which is: a or b).
 regex regex_or(regex a, regex b){
     regex result;
     node newstart;
@@ -77,6 +79,7 @@ regex regex_or(regex a, regex b){
     return result;
 }
 
+// Given regex a and regex b, return a regex concatenation of a and b.
 regex regex_dot(regex a, regex b){
     
 }
