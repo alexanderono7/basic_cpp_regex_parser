@@ -232,10 +232,13 @@ int main()
     //parser.readAndPrintAllInput(); // This existed by default - I believe I'm supposed to remove it
 	parser.parse_input();
 
+    // REMOVE ALL BELOW LATER
+    cout << "\nTokens:\n";
     for(Token i: parser.vect){
         i.Print(); // remove later...
     }
     cout << "\n\n";
+    cout << "IDs:\n";
     for(Token i: parser.ids){
         i.Print(); // remove later...
     }
