@@ -43,6 +43,13 @@ regex::regex(std::string a){
     accept = &two;
 }
 
+// Given regex a and regex b, return a regex concatenation of a and b.
+void regex::concat(regex b){
+    this->accept->first_label = '_';
+    this->accept->first_neighbor = b.start;
+    this->accept = b.accept;
+}
+
 // Given a regex x, return x*
 void regex::kleene(){
     node newstart;
@@ -61,6 +68,23 @@ void regex::kleene(){
 }
 
 // Given regex a and regex b, return a regex which is [a | b] (which is: a or b).
+void regex::OR(regex b){
+    node newstart;
+    node newaccept;
+
+    newstart.first_label = '_';
+    newstart.second_label = '_';
+    newstart.first_neighbor = this->start;
+    newstart.second_neighbor = b.start;
+    
+    this->accept->first_neighbor = &newaccept;
+    this->accept->first_label = '_';
+    b.accept->first_neighbor = &newaccept;
+    b.accept->first_label = '_';
+}
+
+// Given regex a and regex b, return a regex which is [a | b] (which is: a or b).
+//depreciated?
 regex regex_or(regex a, regex b){
     regex result;
     node newstart;
@@ -77,9 +101,4 @@ regex regex_or(regex a, regex b){
     b.accept->first_label = '_';
 
     return result;
-}
-
-// Given regex a and regex b, return a regex concatenation of a and b.
-regex regex_dot(regex a, regex b){
-    
 }

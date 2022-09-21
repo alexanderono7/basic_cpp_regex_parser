@@ -18,12 +18,14 @@ class node{
 
 class regex{
     public:
-        regex(std::string a);
-        regex();
-        void regor();
-        void kleene();
         node *start;
         node *accept;
+
+        regex();
+        regex(std::string a);
+        void OR(regex b);
+        void kleene();
+        void concat(regex b);
     private:
 };
 
