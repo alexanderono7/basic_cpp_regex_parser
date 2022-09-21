@@ -145,7 +145,12 @@ void Parser::parse_expr()
     
     if(t.token_type == CHAR) {
         //create regex here?
-        expect(CHAR);
+        Token t;
+        t = expect(CHAR);
+        string a = t.lexeme;
+        regex new_reg; 
+        new_reg = regex(a);
+        regs.push_back(new_reg);
     }else if(t.token_type == LPAREN) {
         expect(LPAREN);
         parse_expr();
@@ -219,6 +224,10 @@ int main()
     cout << "\n\n";
     for(Token i: parser.ids){
         i.Print(); // remove later...
+    }
+    cout << "\n\n";
+    for(regex i: parser.regs){
+        cout << i.start->first_label; // remove later...
     }
     
     cout << "\n\n";

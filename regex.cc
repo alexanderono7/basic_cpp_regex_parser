@@ -29,7 +29,7 @@ regex::regex(){
     this->accept = NULL;
 }
 
-regex::regex(char a){
+regex::regex(std::string a){
     node one;
     node two;
     one.first_label = a;
@@ -75,4 +75,8 @@ regex regex_or(regex a, regex b){
     b.accept->first_label = '_';
 
     return result;
+}
+
+regex regex_dot(regex a, regex b){
+    
 }

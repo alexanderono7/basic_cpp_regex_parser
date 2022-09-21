@@ -18,7 +18,7 @@ class node{
 
 class regex{
     public:
-        regex(char a);
+        regex(std::string a);
         regex();
         void regor();
         void kleene();
