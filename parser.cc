@@ -139,44 +139,58 @@ void Parser::parse_token()
     parse_expr();
 }
 
-void Parser::parse_expr()
+regex Parser::parse_expr()
 {
     Token t = lexer.peek(1);
+    regex new_reg;
     
     if(t.token_type == CHAR) {
         //create regex here?
         Token t;
         t = expect(CHAR);
         string a = t.lexeme;
-        regex new_reg; 
+
         new_reg = regex(a);
-        regs.push_back(new_reg);
+        //regs.push_back(new_reg);
+        return new_reg;
+
     }else if(t.token_type == LPAREN) {
+        regex newer;
+
         expect(LPAREN);
-        parse_expr();
+        new_reg = parse_expr();
         expect(RPAREN);
         
         t = lexer.peek(1);
         if(t.token_type == DOT){
             expect(DOT);
             expect(LPAREN);
-            parse_expr();
+            newer = parse_expr();
             expect(RPAREN);
+
+            new_reg.concat(newer);
         }else if(t.token_type == OR){
             expect(OR);
             expect(LPAREN);
-            parse_expr();
+            newer = parse_expr();
             expect(RPAREN);
+            
+            new_reg.OR(newer);
         }else if(t.token_type == STAR){
             expect(STAR);
+            new_reg.kleene();
         }else{
             syntax_error();
         }
+        return new_reg;
     }else if(t.token_type == UNDERSCORE){
+        new_reg = regex("_"); // predicting a problem here.
         expect(UNDERSCORE);
+        return new_reg;
     }else{
         syntax_error();
     }
+    return new_reg;
 }
 
 

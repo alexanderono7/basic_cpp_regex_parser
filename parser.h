@@ -31,7 +31,7 @@ class Parser {
     void parse_tokens_section();
     void parse_token_list();
     void parse_token();
-    void parse_expr();
+    regex parse_expr();
 };
 
 #endif
