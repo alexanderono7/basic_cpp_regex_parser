@@ -8,8 +8,43 @@ using namespace std;
     corresponding to the position after the lexeme 
     (b/w p and p').
 */
-int match(regex r, string s, int p){
-    return 0;
+int match(node *r, string s, int p){
+    int a = p;
+    int b = p;
+    string c = s.substr(p,1);
+    
+    //check if r is an accepting node (has no neighbors)
+    if(r->first_neighbor == NULL and r->second_neighbor == NULL)
+        return p;
+
+    //check for label transitions matching s[p] - take one if it matches
+    //check for possible epsilon transitions - take them if they exist
+    //if there no possible paths to take, then set var as -1
+    //note: If you have time compress these two ifs down into one function vvv
+    if(r->first_neighbor != NULL){
+        if(r->first_label == c){
+            a = match(r->first_neighbor, s, p+1); 
+        }else if(r->first_label == "_"){
+            a = match(r->first_neighbor, s, p); 
+        }else{
+            a = -1;
+        }
+    }
+    if(r->second_neighbor != NULL){
+        if(r->second_label == c){
+            b = match(r->second_neighbor, s, p+1); 
+        }else if(r->second_label == "_"){
+            b = match(r->second_neighbor, s, p); 
+        }else{
+            b = -1;
+        }
+    }
+    
+    if(a > b){
+        return a;
+    }else{
+        return b;
+    }
 }
 
 
@@ -20,7 +55,12 @@ int match(regex r, string s, int p){
     to reflect that the input is consumed
 4. If there is a tie, return the token listed first in the list.
 */
-Token my_getToken(vector<Token> L, string s, int p){
+Token my_getToken(vector<regex> L, string s, int p){
+    int max = 0;
+    int result = 0;
+    for(regex i: L){
+        result = match(i.start, s, p);
+    }
     Token t;  return t; // remove later (placeholder to stop warnings)
 }
 
@@ -29,6 +69,7 @@ regex::regex(){
     this->accept = NULL;
 }
 
+// constructor for regex of one character
 regex::regex(std::string a){
     node one;
     node two;
@@ -36,7 +77,7 @@ regex::regex(std::string a){
     one.first_neighbor = &two;
     one.second_neighbor = NULL;
 
-    two.first_label = '_';
+    two.first_label = '_';    // should this be null? maybe don't instanciate it at all???
     two.first_neighbor = NULL;
     two.second_neighbor = NULL;
     start = &one;
@@ -45,7 +86,7 @@ regex::regex(std::string a){
 
 // Given regex a and regex b, return a regex concatenation of a and b.
 void regex::concat(regex b){
-    this->accept->first_label = '_';
+    this->accept->first_label = "_";
     this->accept->first_neighbor = b.start;
     this->accept = b.accept;
 }
@@ -58,8 +99,8 @@ void regex::kleene(){
     newstart.first_neighbor = start;
     newaccept.second_neighbor = start;
     
-    newstart.first_label = '_';
-    newstart.second_label = '_';
+    newstart.first_label = "_";
+    newstart.second_label = "_";
     newaccept.first_neighbor = NULL;
     newaccept.second_neighbor = NULL;
     
@@ -72,15 +113,15 @@ void regex::OR(regex b){
     node newstart;
     node newaccept;
 
-    newstart.first_label = '_';
-    newstart.second_label = '_';
+    newstart.first_label = "_";
+    newstart.second_label = "_";
     newstart.first_neighbor = this->start;
     newstart.second_neighbor = b.start;
     
     this->accept->first_neighbor = &newaccept;
-    this->accept->first_label = '_';
+    this->accept->first_label = "_";
     b.accept->first_neighbor = &newaccept;
-    b.accept->first_label = '_';
+    b.accept->first_label = "_";
 }
 
 // Given regex a and regex b, return a regex which is [a | b] (which is: a or b).
@@ -90,15 +131,15 @@ regex regex_or(regex a, regex b){
     node newstart;
     node newaccept;
 
-    newstart.first_label = '_';
-    newstart.second_label = '_';
+    newstart.first_label = "_";
+    newstart.second_label = "_";
     newstart.first_neighbor = a.start;
     newstart.second_neighbor = b.start;
     
     a.accept->first_neighbor = &newaccept;
-    a.accept->first_label = '_';
+    a.accept->first_label = "_";
     b.accept->first_neighbor = &newaccept;
-    b.accept->first_label = '_';
+    b.accept->first_label = "_";
 
     return result;
 }

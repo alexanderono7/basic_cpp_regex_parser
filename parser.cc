@@ -135,8 +135,11 @@ void Parser::parse_token_list()
 
 void Parser::parse_token()
 {
+    regex reg;
+
+    // I believe this is where you would add ID and expr's to add dictionary/list.
     expect(ID);
-    parse_expr();
+    reg = parse_expr();
 }
 
 regex Parser::parse_expr()

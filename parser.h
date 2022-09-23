@@ -16,10 +16,10 @@ class Parser {
     void parse_input();
     void readAndPrintAllInput();
     std::vector<Token> vect;      //contains ALL tokens of the input
-    std::vector<Token> ids;       //possibly temp
-    std::vector<Token> patterns;  //possibly temp
-    std::vector<regex> regs;      //possibly temp
-    std::string input_text;       //possibly temp
+    std::vector<Token> ids;       //possibly temp - contains list of IDs (token names)
+    std::vector<Token> patterns;  //possibly temp - contains list of expressions (regexes)?
+    std::vector<regex> regs;      //possibly temp - contains list of regex objects
+    std::string input_text;       //possibly temp - contains input text to be matched on
   private:
     LexicalAnalyzer lexer;
     void syntax_error();
