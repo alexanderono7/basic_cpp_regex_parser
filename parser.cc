@@ -35,28 +35,6 @@ string int2str(int x){
     return "WHAT";
 }
 
-/*
-useless
-int enum2int(string x){
-    switch(x){
-           case "END_OF_FILE":  return  0;
-           case "LPAREN":  return  1;
-           case "RPAREN":  return  2;
-           case "HASH":  return  3;
-           case "ID":  return  4;
-           case "COMMA":  return  5;
-           case "DOT":  return  6;
-           case "STAR":  return  7;
-           case "OR":  return  8;
-           case "UNDERSCORE":  return  9;
-           case  "SYMBOL":  return 10;
-           case  "CHAR":  return 11;
-           case  "INPUT_TXT":  return 12;
-           case  "ERROR":  return 13;
-    }
-}
-*/
-
 // triggers when there is a problem w/ token_section
 void Parser::syntax_error()
 {
@@ -95,7 +73,10 @@ Token Parser::expect(TokenType expected_type)
     if (t.token_type != expected_type)
         syntax_error();
     if(t.token_type == ID){
-        ids.push_back(t);
+        id_obj new_id;
+        new_id.name = t.lexeme;
+        id_list.push_back(new_id);
+        ids.push_back(t);   // probably unnecessary 
     }
     if(t.token_type == INPUT_TEXT){
         input_text = t.lexeme;
@@ -248,6 +229,10 @@ int main()
     cout << "\n\n";
     for(regex i: parser.regs){
         cout << i.start->first_label; // remove later...
+    }
+    cout << "\n\nmy id_list: \n";
+    for(id_obj i: parser.id_list){
+        cout << i.name; // remove later...
     }
     
     cout << "\n\n";
