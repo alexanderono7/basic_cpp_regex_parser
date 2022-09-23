@@ -9,11 +9,11 @@
 
 class node{
     public:
+        node();
         node *first_neighbor;
         node *second_neighbor;
         std::string first_label;
         std::string second_label;
-    private:
 };
 
 class regex{
@@ -26,11 +26,10 @@ class regex{
         void OR(regex b);
         void kleene();
         void concat(regex b);
-    private:
 };
 
 
-int match(regex r, std::string s, int p);
+int match(node *r, std::string s, int p);
 Token my_getToken(std::vector<Token> L, std::string s, int p);
 regex regex_or(regex a, regex b);
 regex regex_KLEENE(regex r);

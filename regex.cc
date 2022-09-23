@@ -70,9 +70,21 @@ Token my_getToken(vector<regex> L, string s, int p){
     Token t;  return t; // remove later (placeholder to stop warnings)
 }
 
+node::node(){
+    std::string fl;
+    std::string sl;
+    this->first_label = fl;
+    this->second_label = sl;
+    this->first_neighbor = nullptr;
+    this->second_neighbor = nullptr;
+}
+
 regex::regex(){
-    this->start = NULL;
-    this->accept = NULL;
+    node *a = nullptr;
+    this->start = a;
+
+    node *b = nullptr;
+    this->start = b;
 }
 
 // constructor for regex of one character
@@ -83,11 +95,11 @@ regex::regex(std::string a){
     one.first_neighbor = &two;
     one.second_neighbor = NULL;
 
-    two.first_label = '_';    // should this be null? maybe don't instanciate it at all???
+    two.first_label = '_';    // should this be null?
     two.first_neighbor = NULL;
     two.second_neighbor = NULL;
-    start = &one;
-    accept = &two;
+    this->start = &one;
+    this->accept = &two;
 }
 
 // Given regex a and regex b, return a regex concatenation of a and b.

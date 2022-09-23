@@ -14,7 +14,7 @@
 class id_obj {
   public:
     std::string name;
-    regex reg;
+    regex *reg;
   private:
 };
 

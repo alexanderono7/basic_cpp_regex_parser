@@ -75,6 +75,7 @@ Token Parser::expect(TokenType expected_type)
     if(t.token_type == ID){
         id_obj new_id;
         new_id.name = t.lexeme;
+        new_id.reg = nullptr;
         id_list.push_back(new_id);
         ids.push_back(t);   // probably unnecessary 
     }
@@ -116,23 +117,24 @@ void Parser::parse_token_list()
 
 void Parser::parse_token()
 {
-    regex reg;
+    regex new_reg;
 
     // I believe this is where you would add ID and expr's to add dictionary/list.
     expect(ID);
-    reg = parse_expr();
+    new_reg = parse_expr();
+    id_list.back().reg = &new_reg; // add new regular expression to most recent ID in the id list
 }
 
 regex Parser::parse_expr()
 {
     Token t = lexer.peek(1);
-    regex new_reg;
+    regex new_reg;  // why is this able to be modified in descending recursive calls?
     
     if(t.token_type == CHAR) {
         //create regex here?
-        Token t;
+        string a;
         t = expect(CHAR);
-        string a = t.lexeme;
+        a = t.lexeme;
 
         new_reg = regex(a);
         //regs.push_back(new_reg);
@@ -149,7 +151,7 @@ regex Parser::parse_expr()
         if(t.token_type == DOT){
             expect(DOT);
             expect(LPAREN);
-            newer = parse_expr();
+            newer = parse_expr();   // bug - this line overwrites new_reg?
             expect(RPAREN);
 
             new_reg.concat(newer);
@@ -233,6 +235,10 @@ int main()
     cout << "\n\nmy id_list: \n";
     for(id_obj i: parser.id_list){
         cout << i.name; // remove later...
+    }
+    cout << "\n\nmy id_list: \n";
+    for(id_obj i: parser.id_list){
+        cout << i.reg->start->first_label; // remove later...
     }
     
     cout << "\n\n";
