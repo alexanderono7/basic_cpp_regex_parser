@@ -96,13 +96,16 @@ void regex::kleene(){
     node *newstart = new node;
     node *newaccept = new node;
     
-    newstart->first_neighbor = start;
-    newaccept->second_neighbor = start;
-    
+    newstart->first_neighbor = this->start;
     newstart->first_label = "_";
+    newstart->second_neighbor = newaccept;
     newstart->second_label = "_";
-    newaccept->first_neighbor = NULL;
-    newaccept->second_neighbor = NULL;
+    
+    this->accept->second_neighbor = this->start;
+    this->accept->second_label = "_";
+
+    newaccept->first_neighbor = nullptr;    // does newaccept need eps transitions??
+    newaccept->second_neighbor = nullptr;
     
     this->start = newstart;
     this->accept = newaccept;

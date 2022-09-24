@@ -1,1 +1,2 @@
-t3 d # " d "
+t4 ((f)*).(f) #
+" fff f ffffff "
