@@ -213,6 +213,7 @@ int main()
     parser.analyze(parser.id_list, parser.input_text);
 }
 
+// Perform the actual lexical analysis on the input text.
 void Parser::analyze(vector<id_obj> id_list, string str){
     string s;
     s = str.substr(1,str.length()-2); // removing the quotation marks from str!!!
@@ -244,7 +245,8 @@ void Parser::analyze(vector<id_obj> id_list, string str){
             if(s[p] == ' '){
                 cout << "\"" << s.substr(original,p-original+0) << "\"";
             }else{
-                cout << "\"" << s.substr(original,p-original+1) << "\"";
+                cout << "\"" << s.substr(original,p-original+0) << "\"";
+                //cout << "\"" << s.substr(original,p-original+1) << "\"";
             }
         }
     }

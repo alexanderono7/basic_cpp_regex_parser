@@ -1,2 +1,1 @@
-t4 ((f)*).(f) #
-" fff f ffffff "
+t8 ((a).(b))|(c) # " abc cab "
