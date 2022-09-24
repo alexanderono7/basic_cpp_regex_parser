@@ -15,7 +15,7 @@ int match(node *r, string s, int p, int orig){
 
     string c;
     int len = s.length()-1;
-    if(p >= len){
+    if(p > len){
         c = "xx";
     }else{
         c = s.substr(p,1);
