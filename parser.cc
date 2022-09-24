@@ -7,6 +7,15 @@
  * of this file online
  *
  */
+
+/*
+Alexander Ono
+amono1@asu.edu
+SID: 1214959876
+CSE340 - Dr. Bazzi
+Project #1 - Regex Parser
+9/24/2022
+*/
 #include <iostream>
 #include <cstdlib>
 #include <vector>
@@ -123,7 +132,6 @@ void Parser::parse_token_list()
     parse_token();
     
     Token t = lexer.peek(1);
-    // POSSIBLE PROBLEM HERE vvv
     if(t.token_type == HASH){
         return; //do not expect(HASH)
     }else if(t.token_type == COMMA){
@@ -231,7 +239,7 @@ int main()
     Parser parser;
 	parser.parse_input();
     parser.analyze(parser.id_list, parser.input_text);
-    parser.destroy_all_memory();
+    //parser.destroy_all_memory();
 }
 
 // Perform the actual lexical analysis on the input text.
