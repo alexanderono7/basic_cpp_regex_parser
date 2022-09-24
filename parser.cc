@@ -235,19 +235,14 @@ void Parser::analyze(vector<id_obj> id_list, string str){
                 longest = i;
             } 
         }
-        if(original == max) {
+        if(original == max or max == -1) {
             cout << "\nERROR";
             break;
             // This is where you trigger the "ERROR error" 
         }else{
             p = max;
             cout << "\n" << longest.name << " , ";
-            if(s[p] == ' '){
-                cout << "\"" << s.substr(original,p-original+0) << "\"";
-            }else{
-                cout << "\"" << s.substr(original,p-original+0) << "\"";
-                //cout << "\"" << s.substr(original,p-original+1) << "\"";
-            }
+            cout << "\"" << s.substr(original,p-original+0) << "\"";
         }
     }
     

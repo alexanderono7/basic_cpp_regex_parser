@@ -1,1 +1,1 @@
-t8 ((a).(b))|(c) # " abc cab "
+t9 ((i)|(x)).(q) # " iq xq ix "

@@ -39,6 +39,8 @@ int match(node *r, string s, int p){
         }else{
             b = -1;
         }
+    }else{
+        b = -1;
     }
     
     if(a > b){
