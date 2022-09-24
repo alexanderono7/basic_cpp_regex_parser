@@ -1,4 +1,5 @@
 #!/bin/bash
+# Alexander Ono
 
 if [ ! -d "./provided_tests" ]; then
     echo "Error: tests directory not found!"
