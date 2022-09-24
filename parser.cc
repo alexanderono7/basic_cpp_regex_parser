@@ -35,7 +35,7 @@ void Parser::expr_error()
 void Parser::semantic_error()
 {
     unordered_map <string, int> umap;
-    vector<int> duplicates;
+    //vector<int> duplicates;   // do I need this?
     bool sem_err = false;
     for(id_obj i : id_list){
         if(umap.find(i.name) == umap.end()){
@@ -54,8 +54,23 @@ void Parser::semantic_error()
 // triggers when an expression is able to produce the empty string (epsilon/'_')
 void Parser::epsilon_error()
 {
-    cout << "EPSILON ERROR (PLACEHOLDER)\n";
-    exit(1);
+    unordered_set <node*> nodeset;
+    vector <string> eps_violators;
+    for(id_obj i : id_list){
+        // might need to clear the unordered set - we'll see.
+        nodeset.clear();
+        if(epsilonWalk(i.reg.start,nodeset)){
+            eps_violators.push_back(i.name);
+        }
+
+    }
+    if(eps_violators.size() > 0){
+        cout << "EPSILON IS NOOOOOOOT A TOKEN !!!";
+        for(string x : eps_violators){
+            cout << " " << x;
+        }
+        exit(1);
+    }
 }
 
 // this function gets a token and checks if it is
@@ -95,7 +110,7 @@ void Parser::parse_input()
     
     // more error checking 
     semantic_error();
-    //epsilon_error();
+    epsilon_error();
 }
 
 void Parser::parse_tokens_section()

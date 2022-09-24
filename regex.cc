@@ -1,5 +1,6 @@
 #include "regex.h"
 #include <iostream>
+#include <unordered_set>
 using namespace std;
 /*
 1. Determine the longest possible substring of s @ position p,
@@ -41,6 +42,28 @@ int match(node *r, string s, int p, int orig){
     if(a > b){ result = a; }else{ result = b; }
     return result;
 }
+
+bool epsilonWalk(node *r, unordered_set <node*> nodeset){
+    bool a = false;
+    bool b = false;
+    if(r == nullptr or nodeset.find(r) != nodeset.end()){ 
+        return false; 
+    }
+    nodeset.insert(r);
+    if(r->first_neighbor == nullptr and r->second_neighbor == nullptr){
+        return true;
+    }
+    if(r->first_label == "_"){
+        a = epsilonWalk(r->first_neighbor, nodeset);
+    }
+    if(r->second_label == "_"){
+        b = epsilonWalk(r->second_neighbor, nodeset);
+    }
+
+    return(a or b);
+}
+
+// maybe depreciated
 int match(node *r, string s, int p){
     int a = p;
     int b = p;
