@@ -216,6 +216,7 @@ int main()
 void Parser::analyze(vector<id_obj> id_list, string str){
     string s;
     s = str.substr(1,str.length()-2); // removing the quotation marks from str!!!
+    int len = s.length() - 1;
     int p = 0;
     while(p < s.length()-1){
         if(s[p] == ' '){
@@ -240,7 +241,11 @@ void Parser::analyze(vector<id_obj> id_list, string str){
         }else{
             p = max;
             cout << "\n" << longest.name << " , ";
-            cout << "\"" << s.substr(original,p-1) << "\"";
+            if(s[p-original+1] == ' '){
+                cout << "\"" << s.substr(original,p-original+0) << "\"";
+            }else{
+                cout << "\"" << s.substr(original,p-original+1) << "\"";
+            }
         }
     }
     
