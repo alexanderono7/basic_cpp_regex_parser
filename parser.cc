@@ -209,15 +209,6 @@ int main()
     Parser parser;
 	parser.parse_input();
 
-    // REMOVE LATER vvv
-    cout << "\n\nmy id_list: \n";
-    for(id_obj i: parser.id_list){
-        cout << i.name; // remove later...
-        cout << " ";
-    }
-    
-    cout << "\n\n";
-    cout << parser.input_text;
     cout << "\n";
     
     parser.analyze(parser.id_list, parser.input_text);
