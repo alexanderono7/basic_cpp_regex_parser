@@ -174,8 +174,8 @@ regex Parser::parse_expr()
         return new_reg;
 
     }else if(t.token_type == UNDERSCORE){
-        new_reg = regex("_"); // predicting a problem here.
         expect(UNDERSCORE);
+        new_reg.setchr("_");
         return new_reg;
     }else{
         expr_error();
@@ -226,7 +226,8 @@ void Parser::analyze(vector<id_obj> id_list, string str){
     string s;
     s = str.substr(1,str.length()-2); // removing the quotation marks from str!!!
     int p = 0;
-    while(p < s.length()-1){
+    int len = s.length()-1;
+    while(p < len){
         if(s[p] == ' '){
             p++;
             continue;
@@ -236,7 +237,8 @@ void Parser::analyze(vector<id_obj> id_list, string str){
         int max = -1;
         int result = -1;
         for(id_obj i: id_list){
-            result = match(i.reg.start, s, p);
+            //result = match(i.reg.start, s, p);
+            result = match(i.reg.start, s, p, p);
             if(result > max){
                 max = result;  // this should get the largest pattern match and take care of ties
                 longest = i;

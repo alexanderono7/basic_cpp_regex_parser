@@ -9,6 +9,38 @@ using namespace std;
     corresponding to the position after the lexeme 
     (b/w p and p').
 */
+int match(node *r, string s, int p, int orig){
+    int a = orig;
+    int b = orig;
+
+    string c;
+    int len = s.length()-1;
+    if(p >= len){
+        c = "xx";
+    }else{
+        c = s.substr(p,1);
+    }
+    
+    //if(r == nullptr) return orig;
+    if(r->first_neighbor == NULL and r->second_neighbor == NULL){
+        return p;
+    }
+
+    if(r->first_label == c){
+        a = match(r->first_neighbor, s, p+1, orig); 
+    }else if(r->first_label == "_"){
+        a = match(r->first_neighbor, s, p, orig); 
+    }
+
+    if(r->second_label == c){
+        b = match(r->second_neighbor, s, p+1, orig); 
+    }else if(r->second_label == "_"){
+        b = match(r->second_neighbor, s, p, orig); 
+    }
+    int result;
+    if(a > b){ result = a; }else{ result = b; }
+    return result;
+}
 int match(node *r, string s, int p){
     int a = p;
     int b = p;
@@ -21,7 +53,6 @@ int match(node *r, string s, int p){
     //check for label transitions matching s[p] - take one if it matches
     //check for possible epsilon transitions - take them if they exist
     //if there no possible paths to take, then set var as -1
-    //note: If you have time compress these two ifs down into one function vvv
     if(r->first_neighbor != NULL){
         if(r->first_label == c){
             a = match(r->first_neighbor, s, p+1); 
@@ -99,16 +130,15 @@ void regex::kleene(){
     node *newaccept = new node;
     
     newstart->first_neighbor = this->start;
-    newstart->first_label = "_";
     newstart->second_neighbor = newaccept;
+    newstart->first_label = "_";
     newstart->second_label = "_";
     
+    this->accept->first_neighbor = newaccept;
     this->accept->second_neighbor = this->start;
+    this->accept->first_label = "_";
     this->accept->second_label = "_";
 
-    newaccept->first_neighbor = nullptr;    // does newaccept need eps transitions??
-    newaccept->second_neighbor = nullptr;
-    
     this->start = newstart;
     this->accept = newaccept;
 }
@@ -129,23 +159,4 @@ void regex::OR(regex b){
     this->accept->first_label = "_";
     b.accept->first_label = "_";
     this->accept = newaccept;
-}
-
-
-
-
-
-// depreciated
-regex::regex(std::string a){
-    node one;
-    node two;
-    one.first_label = a;
-    one.first_neighbor = &two;
-    one.second_neighbor = NULL;
-
-    two.first_label = '_';    // should this be null?
-    two.first_neighbor = NULL;
-    two.second_neighbor = NULL;
-    this->start = &one;
-    this->accept = &two;
 }
