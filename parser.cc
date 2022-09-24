@@ -209,7 +209,6 @@ int main()
     Parser parser;
 	parser.parse_input();
 
-    cout << "\n";
     
     parser.analyze(parser.id_list, parser.input_text);
 }
@@ -219,6 +218,10 @@ void Parser::analyze(vector<id_obj> id_list, string str){
     s = str.substr(1,str.length()-1); // removing the quotation marks from str!!!
     int p = 0;
     while(p < s.length()-1){
+        if(s[p] == ' '){
+            p++;
+            continue;
+        }
         int original = p; // marks original position of p
         id_obj longest;
         int max = -1;
@@ -236,7 +239,8 @@ void Parser::analyze(vector<id_obj> id_list, string str){
             // This is where you trigger the "ERROR error" 
         }else{
             p = max;
-            cout << "\n" << longest.name << " , " << s.substr(original,p);
+            cout << "\n" << longest.name << " , ";
+            cout << "\"" << s.substr(original,p-1) << "\"";
         }
     }
     
