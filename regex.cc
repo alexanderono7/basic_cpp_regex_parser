@@ -117,11 +117,13 @@ void regex::OR(regex b){
     newstart->second_label = "_";
     newstart->first_neighbor = this->start;
     newstart->second_neighbor = b.start;
+    this->start = newstart;
     
     this->accept->first_neighbor = newaccept;
     b.accept->first_neighbor = newaccept;
     this->accept->first_label = "_";
     b.accept->first_label = "_";
+    this->accept = newaccept;
 }
 
 
