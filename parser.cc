@@ -234,7 +234,7 @@ void Parser::analyze(vector<id_obj> id_list, string str){
             } 
         }
         if(original == max) {
-            cout << "\nshits fucked";
+            cout << "\nERROR";
             break;
             // This is where you trigger the "ERROR error" 
         }else{
