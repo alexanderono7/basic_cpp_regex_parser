@@ -172,7 +172,7 @@ regex Parser::parse_expr()
     if(t.token_type == CHAR) {
         //create regex here
         string a;
-        t = expect(CHAR);
+        t = expect(CHAR, true);
         a = t.lexeme;
 
         new_reg.setchr(a);
@@ -181,27 +181,27 @@ regex Parser::parse_expr()
     }else if(t.token_type == LPAREN) {
         regex newer;
 
-        expect(LPAREN);
+        expect(LPAREN, true);
         new_reg = parse_expr();
-        expect(RPAREN);
+        expect(RPAREN, true);
         
         t = lexer.peek(1);
         if(t.token_type == DOT){
-            expect(DOT);
-            expect(LPAREN);
-            newer = parse_expr();   // bug - this line overwrites new_reg?
-            expect(RPAREN);
+            expect(DOT, true);
+            expect(LPAREN, true);
+            newer = parse_expr();
+            expect(RPAREN, true);
 
             new_reg.concat(newer);
         }else if(t.token_type == OR){
-            expect(OR);
-            expect(LPAREN);
+            expect(OR, true);
+            expect(LPAREN, true);
             newer = parse_expr();
-            expect(RPAREN);
+            expect(RPAREN, true);
             
             new_reg.OR(newer);
         }else if(t.token_type == STAR){
-            expect(STAR);
+            expect(STAR, true);
             new_reg.kleene();
         }else{
             expr_error();
@@ -209,7 +209,7 @@ regex Parser::parse_expr()
         return new_reg;
 
     }else if(t.token_type == UNDERSCORE){
-        expect(UNDERSCORE);
+        expect(UNDERSCORE, true);
         new_reg.setchr("_");
         return new_reg;
     }else{
