@@ -215,7 +215,7 @@ int main()
 
 void Parser::analyze(vector<id_obj> id_list, string str){
     string s;
-    s = str.substr(1,str.length()-1); // removing the quotation marks from str!!!
+    s = str.substr(1,str.length()-2); // removing the quotation marks from str!!!
     int p = 0;
     while(p < s.length()-1){
         if(s[p] == ' '){
