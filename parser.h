@@ -16,6 +16,7 @@ class id_obj {
     id_obj();
     std::string name;
     regex reg;
+    int lineno;
   private:
 };
 

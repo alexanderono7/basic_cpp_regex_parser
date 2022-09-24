@@ -12,6 +12,8 @@
 #include <vector>
 #include <map>
 #include "parser.h"
+#include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
 
@@ -51,7 +53,6 @@ void Parser::expr_error()
 
 void Parser::semantic_error()
 {
-    cout << "SEMANTIC ERROR (PLACEHOLDER)\n";
     exit(1);
 }
 
@@ -81,6 +82,7 @@ Token Parser::expect(TokenType expected_type, bool isExpr)
         // creation of id object
         id_obj new_id;
         new_id.name = t.lexeme;
+        new_id.lineno = t.line_no;
         id_list.push_back(new_id);
     }
     if(t.token_type == INPUT_TEXT){
@@ -94,6 +96,23 @@ void Parser::parse_input()
     parse_tokens_section();
     expect(INPUT_TEXT);
     expect(END_OF_FILE);
+    
+    // Semantic error checking
+    unordered_map <string, int> umap;
+    vector<int> duplicates;
+    bool sem_err = false;
+    for(id_obj i : id_list){
+        if(umap.find(i.name) == umap.end()){
+            umap[i.name] = i.lineno;
+        }else{
+            cout << "Line " << i.lineno << ": " << i.name << " already declared on line " << umap[i.name];
+            cout << "\n";
+            sem_err = true;
+        }
+    }
+    if(sem_err){
+        exit(1);
+    }
 }
 
 void Parser::parse_tokens_section()
@@ -255,4 +274,5 @@ void Parser::analyze(vector<id_obj> id_list, string str){
 
 id_obj::id_obj(){
     this->name = "???";
+    this->lineno = -1;
 }
