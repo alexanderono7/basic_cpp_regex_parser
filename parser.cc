@@ -12,7 +12,6 @@
 #include <vector>
 #include <map>
 #include "parser.h"
-#include <unordered_set>
 #include <unordered_map>
 
 using namespace std;
@@ -231,9 +230,8 @@ int main()
     // not work correctly
     Parser parser;
 	parser.parse_input();
-
-    
     parser.analyze(parser.id_list, parser.input_text);
+    parser.destroy_all_memory();
 }
 
 // Perform the actual lexical analysis on the input text.
@@ -277,6 +275,12 @@ id_obj::id_obj(){
     this->lineno = -1;
 }
 
-void Parser::destroy_memory(){
+// Destroy the dynamically-allocated memory of all node pointers in each regular expression.
+void Parser::destroy_all_memory(){
+    unordered_set <node*> nodeset;
+    for(id_obj i : id_list){
+        nodeset.clear();
+        destroyTraversal(i.reg.start, nodeset);
+    }
     return;
 }

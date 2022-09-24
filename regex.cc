@@ -50,69 +50,22 @@ bool epsilonWalk(node *r, unordered_set <node*> nodeset){
         return false; 
     }
     nodeset.insert(r);
-    if(r->first_neighbor == nullptr and r->second_neighbor == nullptr){
-        return true;
-    }
-    if(r->first_label == "_"){
-        a = epsilonWalk(r->first_neighbor, nodeset);
-    }
-    if(r->second_label == "_"){
-        b = epsilonWalk(r->second_neighbor, nodeset);
-    }
-
+    if(r->first_neighbor == nullptr and r->second_neighbor == nullptr){ return true; }
+    if(r->first_label == "_"){ a = epsilonWalk(r->first_neighbor, nodeset); }
+    if(r->second_label == "_"){ b = epsilonWalk(r->second_neighbor, nodeset); }
     return(a or b);
 }
 
-// maybe depreciated
-int match(node *r, string s, int p){
-    int a = p;
-    int b = p;
-    string c = s.substr(p,1);
-    
-    //check if r is an accepting node (has no neighbors)
-    if(r->first_neighbor == NULL and r->second_neighbor == NULL)
-        return p;
-
-    //check for label transitions matching s[p] - take one if it matches
-    //check for possible epsilon transitions - take them if they exist
-    //if there no possible paths to take, then set var as -1
-    if(r->first_neighbor != NULL){
-        if(r->first_label == c){
-            a = match(r->first_neighbor, s, p+1); 
-        }else if(r->first_label == "_"){
-            a = match(r->first_neighbor, s, p); 
-        }else{
-            a = -1;
-        }
+void destroyTraversal(node *r, unordered_set <node*> nodeset){
+    if(r == nullptr or nodeset.find(r) != nodeset.end()){ 
+        return; 
     }
-    if(r->second_neighbor != NULL){
-        if(r->second_label == c){
-            b = match(r->second_neighbor, s, p+1); 
-        }else if(r->second_label == "_"){
-            b = match(r->second_neighbor, s, p); 
-        }else{
-            b = -1;
-        }
-    }else{
-        b = -1;
-    }
-    
-    if(a > b){
-        return a;
-    }else{
-        return b;
-    }
+    nodeset.insert(r);
+    destroyTraversal(r->first_neighbor, nodeset);
+    destroyTraversal(r->second_neighbor, nodeset);
+    delete r;
+    return;
 }
-
-
-/*
-1. call match(r,s,p) for each regex in L
-2. for each regex in r, records the longest matching prefix obtained from the match() call 
-3. Returns the token for which match(r,s,p) returns the longest amongst all the prefixes obtained in step 2, and advance the position
-    to reflect that the input is consumed
-4. If there is a tie, return the token listed first in the list.
-*/
-//id_obj my_getToken(vector<id_obj> L, string s, int p){ }
 
 node::node(){
     std::string fl;

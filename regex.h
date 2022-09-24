@@ -1,3 +1,9 @@
+/*
+Alexander Ono
+CSE340 - Dr. Bazzi
+Project #1 - Regex Parser
+9/24/2022
+*/
 #ifndef __REGEX_H__
 #define __REGEX_H__
 
@@ -29,11 +35,9 @@ class regex{
         void concat(regex b);
 };
 
-
-int match(node *r, std::string s, int p);
 int match(node *r, std::string s, int p, int orig);
 bool epsilonWalk(node *r, std::unordered_set<node*> nodeset);
-//id_obj my_getToken(std::vector<id_obj> L, std::string s, int p);
+void destroyTraversal(node *r, std::unordered_set<node*> nodeset);
 regex regex_or(regex a, regex b);
 regex regex_KLEENE(regex r);
 #endif
