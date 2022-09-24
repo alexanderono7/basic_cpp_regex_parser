@@ -53,7 +53,21 @@ void Parser::expr_error()
 
 void Parser::semantic_error()
 {
-    exit(1);
+    unordered_map <string, int> umap;
+    vector<int> duplicates;
+    bool sem_err = false;
+    for(id_obj i : id_list){
+        if(umap.find(i.name) == umap.end()){
+            umap[i.name] = i.lineno;
+        }else{
+            cout << "Line " << i.lineno << ": " << i.name << " already declared on line " << umap[i.name];
+            cout << "\n";
+            sem_err = true;
+        }
+    }
+    if(sem_err){
+        exit(1);
+    }
 }
 
 void Parser::epsilon_error()
@@ -98,21 +112,7 @@ void Parser::parse_input()
     expect(END_OF_FILE);
     
     // Semantic error checking
-    unordered_map <string, int> umap;
-    vector<int> duplicates;
-    bool sem_err = false;
-    for(id_obj i : id_list){
-        if(umap.find(i.name) == umap.end()){
-            umap[i.name] = i.lineno;
-        }else{
-            cout << "Line " << i.lineno << ": " << i.name << " already declared on line " << umap[i.name];
-            cout << "\n";
-            sem_err = true;
-        }
-    }
-    if(sem_err){
-        exit(1);
-    }
+    semantic_error();
 }
 
 void Parser::parse_tokens_section()
