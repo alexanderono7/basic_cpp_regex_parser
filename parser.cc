@@ -31,6 +31,7 @@ void Parser::expr_error()
     exit(1);
 }
 
+// checks for and prints all instances of semantic errors, terminating program if they are found
 void Parser::semantic_error()
 {
     unordered_map <string, int> umap;
