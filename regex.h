@@ -6,7 +6,6 @@
 #include <vector>
 #include "lexer.h"
 
-
 class node{
     public:
         node();
@@ -23,6 +22,7 @@ class regex{
 
         regex();
         regex(std::string a);
+        void setchr(std::string a);
         void OR(regex b);
         void kleene();
         void concat(regex b);

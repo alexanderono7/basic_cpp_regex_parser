@@ -80,14 +80,67 @@ node::node(){
 }
 
 regex::regex(){
-    node *a = nullptr;
-    this->start = a;
-
-    node *b = nullptr;
-    this->start = b;
+    this->start = new node;
+    this->accept = new node;
 }
 
-// constructor for regex of one character
+// given an empty regex object, set it equivalent to expr of 'a'
+void regex::setchr(std::string a){
+    this->start->first_label = a;
+    this->start->first_neighbor = this->accept;
+    this->start->second_neighbor = nullptr;
+
+    this->accept->first_label = "_";
+    this->accept->first_neighbor = nullptr;
+    this->accept->second_neighbor = nullptr;
+}
+
+
+// Given regex a and regex b, return a regex concatenation of a and b.
+void regex::concat(regex b){
+    this->accept->first_label = "_";
+    this->accept->first_neighbor = b.start;
+    this->accept = b.accept;
+}
+
+// Given a regex x, return x*
+void regex::kleene(){
+    node *newstart = new node;
+    node *newaccept = new node;
+    
+    newstart->first_neighbor = start;
+    newaccept->second_neighbor = start;
+    
+    newstart->first_label = "_";
+    newstart->second_label = "_";
+    newaccept->first_neighbor = NULL;
+    newaccept->second_neighbor = NULL;
+    
+    this->start = newstart;
+    this->accept = newaccept;
+}
+
+// Given regex a and regex b, return a regex which is [a | b] (which is: a or b).
+void regex::OR(regex b){
+    node *newstart = new node;
+    node *newaccept = new node;
+
+    newstart->first_label = "_";
+    newstart->second_label = "_";
+    newstart->first_neighbor = this->start;
+    newstart->second_neighbor = b.start;
+    
+    this->accept->first_neighbor = newaccept;
+    b.accept->first_neighbor = newaccept;
+    this->accept->first_label = "_";
+    b.accept->first_label = "_";
+}
+
+
+
+
+
+// depreciated
 regex::regex(std::string a){
     node one;
     node two;
@@ -100,64 +153,4 @@ regex::regex(std::string a){
     two.second_neighbor = NULL;
     this->start = &one;
     this->accept = &two;
-}
-
-// Given regex a and regex b, return a regex concatenation of a and b.
-void regex::concat(regex b){
-    this->accept->first_label = "_";
-    this->accept->first_neighbor = b.start;
-    this->accept = b.accept;
-}
-
-// Given a regex x, return x*
-void regex::kleene(){
-    node newstart;
-    node newaccept;
-    
-    newstart.first_neighbor = start;
-    newaccept.second_neighbor = start;
-    
-    newstart.first_label = "_";
-    newstart.second_label = "_";
-    newaccept.first_neighbor = NULL;
-    newaccept.second_neighbor = NULL;
-    
-    start = &newstart;
-    accept = &newaccept;
-}
-
-// Given regex a and regex b, return a regex which is [a | b] (which is: a or b).
-void regex::OR(regex b){
-    node newstart;
-    node newaccept;
-
-    newstart.first_label = "_";
-    newstart.second_label = "_";
-    newstart.first_neighbor = this->start;
-    newstart.second_neighbor = b.start;
-    
-    this->accept->first_neighbor = &newaccept;
-    this->accept->first_label = "_";
-    b.accept->first_neighbor = &newaccept;
-    b.accept->first_label = "_";
-}
-
-// Given regex a and regex b, return a regex which is [a | b] (which is: a or b).
-//depreciated?
-regex regex_or(regex a, regex b){
-    regex result;
-    node newstart;
-    node newaccept;
-
-    newstart.first_label = "_";
-    newstart.second_label = "_";
-    newstart.first_neighbor = a.start;
-    newstart.second_neighbor = b.start;
-    
-    a.accept->first_neighbor = &newaccept;
-    a.accept->first_label = "_";
-    b.accept->first_neighbor = &newaccept;
-    b.accept->first_label = "_";
-
-    return result;
 }
