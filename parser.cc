@@ -17,14 +17,14 @@
 
 using namespace std;
 
-// triggers when there is a problem w/ token_section
+// triggers when there is a problem w/ token_section syntax (except in expressions)
 void Parser::syntax_error()
 {
     cout << "SNYTAX ERORR\n";
     exit(1);
 }
 
-// should trigger when INPUT_TEXT has an area which does not fit any given regex
+// should trigger when an expression has invalid grammar
 void Parser::expr_error()
 {
     cout << "SYNTAX ERROR IN EXPRESSION OF " << id_list.back().name;
@@ -50,6 +50,7 @@ void Parser::semantic_error()
     }
 }
 
+// triggers when an expression is able to produce the empty string (epsilon/'_')
 void Parser::epsilon_error()
 {
     cout << "EPSILON ERROR (PLACEHOLDER)\n";
