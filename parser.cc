@@ -223,10 +223,11 @@ int main()
     parser.analyze(parser.id_list, parser.input_text);
 }
 
-void Parser::analyze(vector<id_obj> id_list, string s){
-
+void Parser::analyze(vector<id_obj> id_list, string str){
+    string s;
+    s = str.substr(1,str.length()-1); // removing the quotation marks from str!!!
     int p = 0;
-    while(p < s.length()){
+    while(p < s.length()-1){
         int original = p; // marks original position of p
         id_obj longest;
         int max = -1;
@@ -239,7 +240,7 @@ void Parser::analyze(vector<id_obj> id_list, string s){
             } 
         }
         if(original == max) {
-            cout << "shits fucked";
+            cout << "\nshits fucked";
             break;
             // This is where you trigger the "ERROR error" 
         }else{
