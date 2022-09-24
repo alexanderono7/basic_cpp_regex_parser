@@ -23,10 +23,6 @@ class Parser {
   public:
     void parse_input();
     void readAndPrintAllInput();
-    std::vector<Token> vect;      //contains ALL tokens of the input
-    std::vector<Token> ids;       //possibly temp - contains list of IDs (token names)
-    std::vector<Token> patterns;  //possibly temp - contains list of expressions (regexes)?
-    std::vector<regex> regs;      //possibly temp - contains list of regex objects
     std::vector<id_obj> id_list;
     std::string input_text;       //possibly temp - contains input text to be matched on
   private:
@@ -41,6 +37,7 @@ class Parser {
     void parse_token_list();
     void parse_token();
     regex parse_expr();
+    void analyze(vector<id_obj> id_list, string str);
 };
 
 #endif

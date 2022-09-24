@@ -77,12 +77,10 @@ Token Parser::expect(TokenType expected_type)
         id_obj new_id;
         new_id.name = t.lexeme;
         id_list.push_back(new_id);
-        ids.push_back(t);   // probably unnecessary 
     }
     if(t.token_type == INPUT_TEXT){
         input_text = t.lexeme;
     }
-    vect.push_back(t);
     return t;
 }
 
@@ -119,7 +117,7 @@ void Parser::parse_token()
 {
     regex new_reg;
 
-    // I believe this is where you would add ID and expr's to add dictionary/list.
+    // add ID and regex (expr) to id_list
     expect(ID);
     id_list.back().reg = parse_expr(); // add new regular expression to most recent ID in the id list
 }
@@ -193,15 +191,12 @@ void Parser::readAndPrintAllInput()
     // Print the contents of input token list
     while (t.token_type != END_OF_FILE) 
     {
-        vect.push_back(t);
         t.Print();         	// print token
         t = lexer.GetToken();	// and get another one
     }
         
     // note that you should use END_OF_FILE and not EOF
 }
-
-//void Parser::printAll(){ }
 
 int main()
 {
@@ -212,31 +207,13 @@ int main()
     // If you declare another lexer object, lexical analysis will 
     // not work correctly
     Parser parser;
-
-    //parser.readAndPrintAllInput(); // This existed by default - I believe I'm supposed to remove it
 	parser.parse_input();
 
-    // REMOVE ALL BELOW LATER
-    cout << "\nTokens:\n";
-    for(Token i: parser.vect){
-        i.Print(); // remove later...
-    }
-    cout << "\n\n";
-    cout << "IDs:\n";
-    for(Token i: parser.ids){
-        i.Print(); // remove later...
-    }
-    cout << "\n\n";
-    for(regex i: parser.regs){
-        cout << i.start->first_label; // remove later...
-    }
+    // REMOVE LATER vvv
     cout << "\n\nmy id_list: \n";
     for(id_obj i: parser.id_list){
         cout << i.name; // remove later...
-    }
-    cout << "\n\nmy id_list: \n";
-    for(id_obj i: parser.id_list){
-        cout << i.reg.start->first_label; // remove later...
+        cout << " ";
     }
     
     cout << "\n\n";
