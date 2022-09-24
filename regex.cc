@@ -30,7 +30,6 @@ int match(node *r, string s, int p, int orig){
         c = s.substr(p,1);
     }
     
-    //if(r == nullptr) return orig;
     if(r->first_neighbor == NULL and r->second_neighbor == NULL){
         return p;
     }
@@ -51,6 +50,7 @@ int match(node *r, string s, int p, int orig){
     return result;
 }
 
+// Function that traverses the directed graph of nodes to check if the REGEX is capable of producing the empty sequence of tokens (epsilon).
 bool epsilonWalk(node *r, unordered_set <node*> nodeset){
     bool a = false;
     bool b = false;
@@ -64,6 +64,7 @@ bool epsilonWalk(node *r, unordered_set <node*> nodeset){
     return(a or b);
 }
 
+// Function that traverses the directed graph of nodes, deleting them from memory.
 void destroyTraversal(node *r, unordered_set <node*> nodeset){
     if(r == NULL or r->marked){ 
         return; 
@@ -75,6 +76,7 @@ void destroyTraversal(node *r, unordered_set <node*> nodeset){
     return;
 }
 
+// Constructor for the node object.
 node::node(){
     std::string fl;
     std::string sl;
@@ -85,6 +87,7 @@ node::node(){
     this->marked = false;
 }
 
+// Constructor for regex object.
 regex::regex(){
     this->start = new node;
     this->accept = new node;
@@ -102,14 +105,14 @@ void regex::setchr(std::string a){
 }
 
 
-// Given regex a and regex b, return a regex concatenation of a and b.
+// For this regex object, concatenate with regex b to form the expression: (this b)
 void regex::concat(regex b){
     this->accept->first_label = "_";
     this->accept->first_neighbor = b.start;
     this->accept = b.accept;
 }
 
-// Given a regex x, return x*
+// For this regex object, form the expression: (this)*
 void regex::kleene(){
     node *newstart = new node;
     node *newaccept = new node;
@@ -128,7 +131,7 @@ void regex::kleene(){
     this->accept = newaccept;
 }
 
-// Given regex a and regex b, return a regex which is [a | b] (which is: a or b).
+// For this regex object and given regex b, form the regex: (this | b)
 void regex::OR(regex b){
     node *newstart = new node;
     node *newaccept = new node;

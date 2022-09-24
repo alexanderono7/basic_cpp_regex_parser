@@ -25,21 +25,21 @@ Project #1 - Regex Parser
 
 using namespace std;
 
-// triggers when there is a problem w/ token_section syntax (except in expressions)
+// Non-EXPR syntax error: triggers when there is a problem w/ token_section syntax (except in expressions).
 void Parser::syntax_error()
 {
     cout << "SNYTAX ERORR\n";
     exit(1);
 }
 
-// should trigger when an expression has invalid grammar
+// EXPR syntax error: should trigger when an EXPRESSION specifically has invalid grammar.
 void Parser::expr_error()
 {
     cout << "SYNTAX ERROR IN EXPRESSION OF " << id_list.back().name;
     exit(1);
 }
 
-// checks for and prints all instances of semantic errors, terminating program if they are found
+// Semantic error: triggers if 2 or more tokens have the same name (ID).
 void Parser::semantic_error()
 {
     unordered_map <string, int> umap;
@@ -59,13 +59,12 @@ void Parser::semantic_error()
     }
 }
 
-// triggers when an expression is able to produce the empty string (epsilon/'_')
+// Epsilon error: triggers when an expression of a token is able to produce the empty string (epsilon/'_').
 void Parser::epsilon_error()
 {
     unordered_set <node*> nodeset;
     vector <string> eps_violators;
     for(id_obj i : id_list){
-        // might need to clear the unordered set - we'll see.
         nodeset.clear();
         if(epsilonWalk(i.reg.start,nodeset)){
             eps_violators.push_back(i.name);
@@ -81,15 +80,17 @@ void Parser::epsilon_error()
     }
 }
 
+// Overloaded partial function version of Parser::expect - used for convenience as expected_type is set to false by default.
+Token Parser::expect(TokenType expected_type){
+    return expect(expected_type, false);
+}
+
 // this function gets a token and checks if it is
 // of the expected type. If it is, the token is
 // returned, otherwise, synatx_error() is generated
 // this function is particularly useful to match
 // terminals in a right hand side of a rule.
 // Written by Mohsen Zohrevandi
-Token Parser::expect(TokenType expected_type){
-    return expect(expected_type, false);
-}
 Token Parser::expect(TokenType expected_type, bool isExpr)
 {
     Token t = lexer.GetToken();
@@ -110,6 +111,7 @@ Token Parser::expect(TokenType expected_type, bool isExpr)
     return t;
 }
 
+// Parses the input section (the start variable of the grammar, essentially).
 void Parser::parse_input()
 {
     parse_tokens_section();
@@ -121,12 +123,14 @@ void Parser::parse_input()
     epsilon_error();
 }
 
+// Parses: tokens_section -> token_list HASH
 void Parser::parse_tokens_section()
 {
     parse_token_list();
     expect(HASH);
 }
 
+// Parses: token_list -> token | token COMMA token_list
 void Parser::parse_token_list()
 {
     parse_token();
@@ -142,6 +146,7 @@ void Parser::parse_token_list()
     }
 }
 
+// Parses: token -> ID expr
 void Parser::parse_token()
 {
     regex new_reg;
@@ -151,6 +156,14 @@ void Parser::parse_token()
     id_list.back().reg = parse_expr(); // add new regular expression to most recent ID in the id list
 }
 
+/*
+Parses an EXPR (a regular expression):
+expr -> CHAR
+expr -> LPAREN expr RPAREN DOT LPAREN expr RPAREN
+expr -> LPAREN expr RPAREN OR LPAREN expr RPAREN
+expr -> LPAREN expr RPAREN STAR
+expr -> UNDERSCORE
+*/
 regex Parser::parse_expr()
 {
     Token t = lexer.peek(1);
@@ -209,7 +222,6 @@ regex Parser::parse_expr()
 // This function simply reads and prints all tokens
 // I included it as an example. You should compile the provided code
 // as it is and then run ./a.out < tests/test0.txt to see what this function does
-
 void Parser::readAndPrintAllInput()
 {
     Token t;
@@ -228,6 +240,7 @@ void Parser::readAndPrintAllInput()
     // note that you should use END_OF_FILE and not EOF
 }
 
+// Main method of the program, start of program execution.
 int main()
 {
     // note: the parser class has a lexer object instantiated in it (see file
@@ -258,7 +271,6 @@ void Parser::analyze(vector<id_obj> id_list, string str){
         int max = -1;
         int result = -1;
         for(id_obj i: id_list){
-            //result = match(i.reg.start, s, p);
             result = match(i.reg.start, s, p, p);
             if(result > max){
                 max = result;  // this should get the largest pattern match and take care of ties

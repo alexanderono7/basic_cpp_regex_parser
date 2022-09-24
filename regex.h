@@ -31,7 +31,6 @@ class regex{
         node *accept;
 
         regex();
-        regex(std::string a);
         void setchr(std::string a);
         void OR(regex b);
         void kleene();
@@ -41,6 +40,4 @@ class regex{
 int match(node *r, std::string s, int p, int orig);
 bool epsilonWalk(node *r, std::unordered_set<node*> nodeset);
 void destroyTraversal(node *r, std::unordered_set<node*> nodeset);
-regex regex_or(regex a, regex b);
-regex regex_KLEENE(regex r);
 #endif
