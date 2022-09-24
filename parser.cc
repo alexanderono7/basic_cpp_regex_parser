@@ -45,7 +45,7 @@ void Parser::syntax_error()
 // should trigger when INPUT_TEXT has an area which does not fit any given regex
 void Parser::expr_error()
 {
-    cout << "EXPR ERROR (PLACEHOLDER)\n";
+    cout << "SYNTAX ERROR IN EXPRESSION OF " << id_list.back().name;
     exit(1);
 }
 
@@ -67,9 +67,14 @@ void Parser::epsilon_error()
 // this function is particularly useful to match
 // terminals in a right hand side of a rule.
 // Written by Mohsen Zohrevandi
-Token Parser::expect(TokenType expected_type)
+Token Parser::expect(TokenType expected_type){
+    return expect(expected_type, false);
+}
+Token Parser::expect(TokenType expected_type, bool isExpr)
 {
     Token t = lexer.GetToken();
+    if(t.token_type != expected_type and isExpr)
+        expr_error();
     if (t.token_type != expected_type)
         syntax_error();
     if(t.token_type == ID){
@@ -162,15 +167,16 @@ regex Parser::parse_expr()
             expect(STAR);
             new_reg.kleene();
         }else{
-            syntax_error();
+            expr_error();
         }
         return new_reg;
+
     }else if(t.token_type == UNDERSCORE){
         new_reg = regex("_"); // predicting a problem here.
         expect(UNDERSCORE);
         return new_reg;
     }else{
-        syntax_error();
+        expr_error();
     }
     return new_reg;
 }
@@ -217,7 +223,6 @@ int main()
 void Parser::analyze(vector<id_obj> id_list, string str){
     string s;
     s = str.substr(1,str.length()-2); // removing the quotation marks from str!!!
-    int len = s.length() - 1;
     int p = 0;
     while(p < s.length()-1){
         if(s[p] == ' '){

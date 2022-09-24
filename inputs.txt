@@ -1,1 +1,1 @@
-t9 ((i)|(x)).(q) # " iq xq ix "
+t1b (((t)|(y))*).((t).(y)) # " tytyyttt yyttyt ty "

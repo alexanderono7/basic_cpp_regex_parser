@@ -20,8 +20,9 @@ let all=0
 
 mkdir -p ./output
 
+#====================================================================================================
 #										 vvv CHANGE HERE vvv
-for test_file in $(find ./provided_tests/Lexical_Analysis -type f -name "*.txt" | sort); do
+for test_file in $(find ./provided_tests/Syntax_Error_Expr -type f -name "*.txt" | sort); do
     all=$((all+1))
     name=`basename ${test_file} .txt`
     expected_file=${test_file}.expected
