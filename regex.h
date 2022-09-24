@@ -30,7 +30,7 @@ class regex{
 
 
 int match(node *r, std::string s, int p);
-Token my_getToken(std::vector<Token> L, std::string s, int p);
+//id_obj my_getToken(std::vector<id_obj> L, std::string s, int p);
 regex regex_or(regex a, regex b);
 regex regex_KLEENE(regex r);
 #endif

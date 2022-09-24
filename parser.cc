@@ -219,6 +219,35 @@ int main()
     cout << "\n\n";
     cout << parser.input_text;
     cout << "\n";
+    
+    parser.analyze(parser.id_list, parser.input_text);
+}
+
+void Parser::analyze(vector<id_obj> id_list, string s){
+
+    int p = 0;
+    while(p < s.length()){
+        int original = p; // marks original position of p
+        id_obj longest;
+        int max = -1;
+        int result = -1;
+        for(id_obj i: id_list){
+            result = match(i.reg.start, s, p);
+            if(result > max){
+                max = result;  // this should get the largest pattern match and take care of ties
+                longest = i;
+            } 
+        }
+        if(original == max) {
+            cout << "shits fucked";
+            break;
+            // This is where you trigger the "ERROR error" 
+        }else{
+            p = max;
+            cout << "\n" << longest.name << " , " << s.substr(original,p);
+        }
+    }
+    
 }
 
 id_obj::id_obj(){

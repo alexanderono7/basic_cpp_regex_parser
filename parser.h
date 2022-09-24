@@ -25,6 +25,7 @@ class Parser {
     void readAndPrintAllInput();
     std::vector<id_obj> id_list;
     std::string input_text;       //possibly temp - contains input text to be matched on
+    void analyze(std::vector<id_obj> id_list, std::string str);
   private:
     LexicalAnalyzer lexer;
     void syntax_error();
@@ -37,7 +38,6 @@ class Parser {
     void parse_token_list();
     void parse_token();
     regex parse_expr();
-    void analyze(vector<id_obj> id_list, string str);
 };
 
 #endif

@@ -56,19 +56,7 @@ int match(node *r, string s, int p){
     to reflect that the input is consumed
 4. If there is a tie, return the token listed first in the list.
 */
-Token my_getToken(vector<regex> L, string s, int p){
-    int max = -1;
-    int result = -1;
-    for(regex i: L){
-        result = match(i.start, s, p);
-        if(result > max) max = result;
-    }
-    if(max == -1) {
-        cout << "shits fucked";
-        // This is where you trigger the EXPR error
-    }
-    Token t;  return t; // remove later (placeholder to stop warnings)
-}
+//id_obj my_getToken(vector<id_obj> L, string s, int p){ }
 
 node::node(){
     std::string fl;
