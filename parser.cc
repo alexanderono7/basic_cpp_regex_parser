@@ -94,7 +94,7 @@ void Parser::parse_input()
     
     // more error checking 
     semantic_error();
-    epsilon_error();
+    //epsilon_error();
 }
 
 void Parser::parse_tokens_section()
@@ -243,18 +243,22 @@ void Parser::analyze(vector<id_obj> id_list, string str){
         }
         if(original == max or max == -1) {
             cout << "\nERROR";
-            break;
-            // This is where you trigger the "ERROR error" 
+            exit(1);
+            //break;
         }else{
             p = max;
             cout << "\n" << longest.name << " , ";
             cout << "\"" << s.substr(original,p-original+0) << "\"";
         }
     }
-    
 }
 
+// id object constructor
 id_obj::id_obj(){
     this->name = "???";
     this->lineno = -1;
+}
+
+void Parser::destroy_memory(){
+    return;
 }

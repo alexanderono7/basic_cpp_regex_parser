@@ -27,6 +27,7 @@ class Parser {
     std::vector<id_obj> id_list;
     std::string input_text;       //possibly temp - contains input text to be matched on
     void analyze(std::vector<id_obj> id_list, std::string str);
+    void destroy_memory();
   private:
     LexicalAnalyzer lexer;
     void syntax_error();
