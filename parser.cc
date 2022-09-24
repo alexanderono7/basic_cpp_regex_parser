@@ -17,26 +17,6 @@
 
 using namespace std;
 
-string int2str(int x){
-    switch(x){
-        case 0: return "END_OF_FILE";
-        case 1: return "LPAREN";
-        case 2: return "RPAREN";
-        case 3: return "HASH";
-        case 4: return "ID";
-        case 5: return "COMMA";
-        case 6: return "DOT";
-        case 7: return "STAR";
-        case 8: return "OR";
-        case 9: return "UNDERSCORE";
-        case 10: return "SYMBOL";
-        case 11: return "CHAR";
-        case 12: return "INPUT_TXT";
-        case 13: return "ERROR";
-    }
-    return "WHAT";
-}
-
 // triggers when there is a problem w/ token_section
 void Parser::syntax_error()
 {
@@ -111,8 +91,9 @@ void Parser::parse_input()
     expect(INPUT_TEXT);
     expect(END_OF_FILE);
     
-    // Semantic error checking
+    // more error checking 
     semantic_error();
+    epsilon_error();
 }
 
 void Parser::parse_tokens_section()
