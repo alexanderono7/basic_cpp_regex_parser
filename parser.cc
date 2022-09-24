@@ -241,7 +241,7 @@ void Parser::analyze(vector<id_obj> id_list, string str){
         }else{
             p = max;
             cout << "\n" << longest.name << " , ";
-            if(s[p-original+1] == ' '){
+            if(s[p] == ' '){
                 cout << "\"" << s.substr(original,p-original+0) << "\"";
             }else{
                 cout << "\"" << s.substr(original,p-original+1) << "\"";
