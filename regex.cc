@@ -57,10 +57,10 @@ bool epsilonWalk(node *r, unordered_set <node*> nodeset){
 }
 
 void destroyTraversal(node *r, unordered_set <node*> nodeset){
-    if(r == nullptr or nodeset.find(r) != nodeset.end()){ 
+    if(r == NULL or r->marked){ 
         return; 
     }
-    nodeset.insert(r);
+    r->marked = true;
     destroyTraversal(r->first_neighbor, nodeset);
     destroyTraversal(r->second_neighbor, nodeset);
     delete r;
@@ -74,6 +74,7 @@ node::node(){
     this->second_label = sl;
     this->first_neighbor = nullptr;
     this->second_neighbor = nullptr;
+    this->marked = false;
 }
 
 regex::regex(){

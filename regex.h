@@ -20,6 +20,7 @@ class node{
         node *second_neighbor;
         std::string first_label;
         std::string second_label;
+        bool marked;
 };
 
 class regex{
